@@ -19,7 +19,7 @@
         dest: /etc/nginx/nginx.conf
         owner: root
         group: root
-        mode: '0755'
+        mode: '0644'
         force: yes
 
     - name: install nodejs
@@ -56,7 +56,8 @@
         dest: /usr/share/nginx/html/
         owner: root
         group: root
-        mode: '0755'
+        directory_mode: '0755' 
+        mode: '0644'
         remote_src: yes
         force: yes
 
