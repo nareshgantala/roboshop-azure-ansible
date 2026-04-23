@@ -1,0 +1,50 @@
+- name: setup frontend
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: install nginx
+      ansible.builtin.dnf:
+        name: nginx:1.26
+        state: present
+
+    - name: Copy nginx.conf
+      ansible.builtin.copy:
+        src: nginx.conf
+        dest: /etc/nginx/nginx.conf
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: install nodejs
+      ansible.builtin.dnf:
+        name: nodejs:20
+        state: present
+
+    - name: Remove old html  
+      ansible.builtin.file:
+        path: /usr/share/nginx/html/
+        state: absent
+
+
+    - name: Download frontend source code & unzip
+      ansible.builtin.unarchive:
+        src: https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/frontend.zip
+        dest: /tmp/frontend
+        remote_src: yes
+
+    - name: build the code
+      ansible.builtin.shell: |
+        npm install
+        npm run build
+      args:
+        chdir: /tmp/frontend
+
+    - name: Restart nginx service
+      ansible.builtin.systemd_service:
+        state: restarted
+        daemon_reload: true
+        name: nginx
+
+        
+
+  
