@@ -8,6 +8,11 @@
         name: nginx
         state: present
 
+    - name: install unzip
+      ansible.builtin.dnf:
+        name: unzip
+        state: present
+
     - name: Copy nginx.conf
       ansible.builtin.copy:
         src: nginx.conf
