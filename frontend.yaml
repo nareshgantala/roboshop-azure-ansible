@@ -19,6 +19,8 @@
         dest: /etc/nginx/nginx.conf
         owner: root
         group: root
+        mode: '0755'
+        force: yes
 
     - name: install nodejs
       ansible.builtin.dnf:
@@ -54,8 +56,9 @@
         dest: /usr/share/nginx/html/
         owner: root
         group: root
-        mode: '0644'
+        mode: '0755'
         remote_src: yes
+        force: yes
 
     - name: Restart nginx service
       ansible.builtin.systemd_service:
