@@ -49,6 +49,14 @@
       args:
         chdir: /tmp/frontend
 
+    - name: Copy html code
+      ansible.builtin.copy:
+        src:  /tmp/frontend/out/
+        dest: /usr/share/nginx/html/
+        owner: root
+        group: root
+        mode: '0644'
+
     - name: Restart nginx service
       ansible.builtin.systemd_service:
         state: restarted
