@@ -1,6 +1,7 @@
 - name: setup frontend
   hosts: all
   gather_facts: no
+  become: yes
   tasks:
     - name: install nginx
       ansible.builtin.dnf:
