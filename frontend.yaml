@@ -3,6 +3,10 @@
   gather_facts: no
   become: yes
   tasks:
+    - name: Fix SELinux context for Nginx
+      ansible.builtin.command: restorecon -Rv /usr/share/nginx/html
+      ignore_errors: yes
+      
     - name: install nginx
       ansible.builtin.dnf:
         name: nginx
