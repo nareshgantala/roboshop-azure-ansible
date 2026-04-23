@@ -26,6 +26,10 @@
         path: /usr/share/nginx/html/
         state: absent
 
+    - name: create frontend directory 
+      ansible.builtin.file:
+        path: /tmp/frontend
+        state: directory
 
     - name: Download frontend source code & unzip
       ansible.builtin.unarchive:
