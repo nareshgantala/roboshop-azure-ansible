@@ -5,7 +5,7 @@
   tasks:
     - name: install nginx
       ansible.builtin.dnf:
-        name: nginx:1.26
+        name: nginx
         state: present
 
     - name: Copy nginx.conf
@@ -18,7 +18,7 @@
 
     - name: install nodejs
       ansible.builtin.dnf:
-        name: nodejs:20
+        name: nodejs
         state: present
 
     - name: Remove old html  
