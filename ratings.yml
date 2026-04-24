@@ -41,3 +41,10 @@
         pip3 install -r /app/requirements.txt cryptography
       args:
         chdir: /app
+
+    - name: restart ratings service
+      ansible.builtin.systemd_service:
+        name: ratings
+        state: restarted
+        enabled: yes
+        daemon_reload: true        
