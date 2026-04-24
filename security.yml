@@ -1,0 +1,19 @@
+- name: Disable Security Settings
+  hosts: all
+  become: yes
+  tasks:
+    - name: Stop and Disable Firewall
+      ansible.builtin.systemd_service:
+        name: firewalld
+        state: stopped
+        enabled: false
+
+    - name: Permanently Disable SELinux
+      ansible.builtin.replace:
+        path: /etc/selinux/config
+        regexp: 'SELINUX=enforcing'
+        replace: 'SELINUX=disabled'
+
+    - name: Disable SELinux for current session
+      ansible.builtin.shell: setenforce 0
+      ignore_errors: yes

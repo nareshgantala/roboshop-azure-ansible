@@ -1,0 +1,43 @@
+- name: setu rabbitmq server
+  hosts: rabbitmq
+  become: yes
+  gather_facts: no
+  tasks:
+    - name: install erlang
+      ansible builtin.shell: |
+        cat > /etc/yum.repos.d/rabbitmq_erlang.repo << 'EOF'
+        [rabbitmq_erlang]
+        name=rabbitmq_erlang
+        baseurl=https://packagecloud.io/rabbitmq/erlang/el/9/$basearch
+        gpgcheck=0
+        enabled=1
+        EOF
+        dnf install -y erlang
+        cat > /etc/yum.repos.d/rabbitmq_rabbitmq-server.repo << 'EOF'
+        [rabbitmq_rabbitmq-server]
+        name=rabbitmq_rabbitmq-server
+        baseurl=https://packagecloud.io/rabbitmq/rabbitmq-server/el/9/$basearch
+        gpgcheck=0
+        enabled=1
+        EOF
+        dnf install -y rabbitmq-server
+
+    - name: start service
+      ansible.builtin.systemd_service:
+        name: rabbitmq-server
+        enabled: yes
+        deamon_reload: true
+        state: restarted
+
+    - name: create rabbitmq user& permisions
+      ansible.builtin.shell: |
+        rabbitmqctl add_user roboshop RoboShop@1
+        rabbitmqctl set_user_tags roboshop administrator
+        rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
+
+    - name: start service
+      ansible.builtin.systemd_service:
+        name: rabbitmq-server
+        enabled: yes
+        deamon_reload: true
+        state: restarted
