@@ -9,8 +9,8 @@
 
     - name: update bind IP
       ansible.builtin.shell: |
-        sed -i "s/bind 127.0.0.1/bind 0.0.0.0" /etc/valkey/valkey.conf
-        sed -i "s/protected-mode yes/protected-mode no" /etc/valkey/valkey.conf
+        sed -i "s/bind 127.0.0.1/bind 0.0.0.0/" /etc/valkey/valkey.conf
+        sed -i "s/protected-mode yes/protected-mode no/" /etc/valkey/valkey.conf
     
     - name: restart valkey
       ansible.builtin.systemd_service:
