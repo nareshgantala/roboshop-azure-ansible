@@ -10,10 +10,10 @@
         dnf install -y unzip
 
     - name: copy user service file
-      ansible.buitin.copy: 
+      ansible.builtin.copy: 
         src: user.service
         dest: /etc/systemd/system/user.service
-        
+
 
     - name: create user
       ansible.builtin.user:
