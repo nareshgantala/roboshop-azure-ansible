@@ -2,7 +2,7 @@
   hosts: mongo
   become: yes
   gather_facts: no
-  taks:
+  tasks:
     - name: copy mongo repo
       ansible.builtin.copy:
         src: mongo.repo
@@ -11,7 +11,7 @@
     - name: Install mongodb
       ansible.builtin.dnf:
         name: mongodb-org
-        
+
     - name: update bindIP address
       ansible.builtin.shell: |
         sed -i "s/bindIp: 127.0.0.1/bindIp: 0.0.0.0/" /etc/mongod.conf
