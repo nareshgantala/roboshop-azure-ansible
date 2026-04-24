@@ -36,9 +36,9 @@
 
     - name: load db schema in mysql server
       ansible.builtin.shell: |
-        mysql -h <MYSQL-SERVER-IP> -u root -pRoboShop@1 < db/schema.sql
-        mysql -h <MYSQL-SERVER-IP> -u root -pRoboShop@1 < db/app-user.sql
-        mysql -h <MYSQL-SERVER-IP> -u root -pRoboShop@1 catalogue < db/master-data.sql
+        mysql -h 10.0.21.205 -u root -pRoboShop@1 < db/schema.sql
+        mysql -h 10.0.21.205 -u root -pRoboShop@1 < db/app-user.sql
+        mysql -h 10.0.21.205 -u root -pRoboShop@1 catalogue < db/master-data.sql
         go mod tidy
         CGO_ENABLED=0 go build -o /app/catalogue .
 
