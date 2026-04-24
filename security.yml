@@ -2,12 +2,6 @@
   hosts: all
   become: yes
   tasks:
-    - name: Stop and Disable Firewall
-      ansible.builtin.systemd_service:
-        name: firewalld
-        state: stopped
-        enabled: false
-        ignore_errors: yes
 
     - name: Permanently Disable SELinux
       ansible.builtin.replace:
