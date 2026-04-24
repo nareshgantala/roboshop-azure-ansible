@@ -1,5 +1,5 @@
 - name: setup mysql server
-  hosts: mysql_server
+  hosts: mysql
   become: yes
   gather_facts: no
   tasks:
