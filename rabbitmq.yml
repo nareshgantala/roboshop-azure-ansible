@@ -4,7 +4,7 @@
   gather_facts: no
   tasks:
     - name: install erlang
-      ansible builtin.shell: |
+      ansible.builtin.shell: |
         cat > /etc/yum.repos.d/rabbitmq_erlang.repo << 'EOF'
         [rabbitmq_erlang]
         name=rabbitmq_erlang
