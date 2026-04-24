@@ -1,0 +1,46 @@
+- name: setup shipping service
+  hosts: shipping
+  become: yes
+  gather_fatcs: no
+  tasks:
+    - name: install java, maven
+      ansible.builtin.dnf:
+        name:
+          - java-21-openjdk
+          - java-21-openjdk-devel
+          - maven 
+          - mysql8.4
+          - unzip
+
+    - name: copy service file
+      ansible.builtin.copy:
+        src: shipping.service
+        dest: /etc/systemd/system/shipping.service
+        
+    - name: create user
+      ansible.builtin.user:
+        name: appuser
+        shell: /bin/false
+
+    - name: create app directory
+      ansible.builtin.file:
+        path: /app
+        owner: appuser
+        group: appuser
+        mode: "0770"
+        state: directory
+
+    - name: download code & unzip
+      ansible.builtin.unarchive:
+        src: https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/shipping.zip
+        dest: /app
+        remote_src: yes
+
+    - name: setup datbase
+      ansible.builtin.shell:
+        mysql -h <MYSQL-SERVER-IP> -u root -pRoboShop@1 < db/schema.sql
+        mysql -h <MYSQL-SERVER-IP> -u root -pRoboShop@1 < db/app-user.sql
+        mvn clean package -DskipTests
+      args:
+        chdir: /app
+
