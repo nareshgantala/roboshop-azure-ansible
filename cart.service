@@ -11,8 +11,8 @@ Restart=on-failure
 RestartSec=10
 SyslogIdentifier=cart
 
-Environment=REDIS_HOST=localhost
-Environment=CATALOGUE_URL=http://localhost:8002
+Environment=REDIS_HOST=10.0.20.144
+Environment=CATALOGUE_URL=http://10.0.20.120:8002
 Environment=PORT=8003
 
 [Install]

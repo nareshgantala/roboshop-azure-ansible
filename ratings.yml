@@ -14,7 +14,7 @@
       ansible.builtin.copy:
         src: ratings.service
         dest: /etc/systemd/system/ratings.service
-        
+
     - name: create app user
       ansible.builtin.user:
         name: appuser
@@ -36,8 +36,8 @@
 
     - name: database&download dependcies
       ansible.builtin.shell: |
-        mysql -h <MYSQL-SERVER-IP> -u root -pRoboShop@1 < db/schema.sql
-        mysql -h <MYSQL-SERVER-IP> -u root -pRoboShop@1 < db/app-user.sql
+        mysql -h 10.0.19.213 -u root -pRoboShop@1 < db/schema.sql
+        mysql -h 10.0.19.213 -u root -pRoboShop@1 < db/app-user.sql
         pip3 install -r /app/requirements.txt cryptography
       args:
         chdir: /app
