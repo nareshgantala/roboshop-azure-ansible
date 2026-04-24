@@ -40,6 +40,8 @@
       ansible.builtin.shell: |
         mvn clean package -DskipTests
         cp target/orders.jar /app/orders.jar
+      args:
+        chdir: /app
 
     - name: restart oders service
       ansible.builtin.systemd_service:
