@@ -10,8 +10,10 @@
     - name: Restart mysqld service
       ansible.builtin.systemd_service:
         state: restarted
+        enabled: yes
         daemon_reload: true
         name: mysqld
+
     - name: set root password
       ansible.builtin.shell: |
         mysql -u root -e "
