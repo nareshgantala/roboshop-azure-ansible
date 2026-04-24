@@ -23,10 +23,10 @@
 
     - name: create app directory
       ansible.builtin.file:
-      path: /app
-      owner: appuser
-      group: appuser
-      mode: '0770'
+        path: /app
+        owner: appuser
+        group: appuser
+        mode: '0770'
 
     - name: download & unzip code
       ansible.builtin.unarchive:
