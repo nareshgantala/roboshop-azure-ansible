@@ -1,7 +1,7 @@
 - name: setup shipping service
   hosts: shipping
   become: yes
-  gather_fatcs: no
+  gather_facts: no
   tasks:
     - name: install java, maven
       ansible.builtin.dnf:
