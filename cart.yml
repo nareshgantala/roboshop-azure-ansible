@@ -8,7 +8,7 @@
         curl -fsSL https://rpm.nodesource.com/setup_20.x | bash -
         dnf install -y nodejs
         dnf install -y unzip
-        
+
     - name: copy cart service file
       ansible.builtin.copy:
         src: cart.service
@@ -41,7 +41,7 @@
     - name: restart cart service
       ansible.builtin.systemd_service:
         name: cart
-        deamon_reload: true
+        daemon_reload: true
         enabled: yes
         state: restarted
 
