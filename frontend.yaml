@@ -1,5 +1,5 @@
 - name: setup frontend
-  hosts: all
+  hosts: web
   gather_facts: no
   become: yes
   tasks:
