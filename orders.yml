@@ -9,12 +9,13 @@
           - java-21-openjdk
           - java-21-openjdk-devel
           - maven
+          - unzip
 
     - name: copy orders service
       ansible.builtin.copy:
         src: orders.service
         dest: /etc/systemd/system/orders.service
-        
+
 
     - name: create user
       ansible.builtin.user:
