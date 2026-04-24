@@ -3,10 +3,6 @@
   gather_facts: no
   become: yes
   tasks:
-    - name: Fix SELinux context for Nginx
-      ansible.builtin.command: restorecon -Rv /usr/share/nginx/html
-      ignore_errors: yes
-      
     - name: install nginx
       ansible.builtin.dnf:
         name: nginx
@@ -64,7 +60,10 @@
         mode: '0644'
         remote_src: yes
         force: yes
-
+    - name: Fix SELinux context for Nginx
+      ansible.builtin.command: restorecon -Rv /usr/share/nginx/html
+      ignore_errors: yes
+      
     - name: Restart nginx service
       ansible.builtin.systemd_service:
         state: restarted
