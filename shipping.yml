@@ -41,6 +41,7 @@
         mysql -h 10.0.19.213 -u root -pRoboShop@1 < db/schema.sql
         mysql -h 10.0.19.213 -u root -pRoboShop@1 < db/app-user.sql
         mvn clean package -DskipTests
+        cp target/shipping.jar /app/shipping.jar
       args:
         chdir: /app
 
