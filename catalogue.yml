@@ -13,8 +13,8 @@
 
     - name: copy service file
       ansible.builtin.copy:
-      src: catalogue.service
-      dest: /etc/systemd/system/catalogue.service
+        src: catalogue.service
+        dest: /etc/systemd/system/catalogue.service
 
     - name: Add the app user 
       ansible.builtin.user:
