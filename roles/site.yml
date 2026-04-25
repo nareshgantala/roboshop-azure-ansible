@@ -1,42 +1,42 @@
 - name: setup frontend service
   hosts: frontend
   become: true
-  gather_facts: true
+  gather_facts: no
   roles:
     - role: frontend
 
 - name: setup mysql service
   hosts: mysql
   become: true
-  gather_facts: true
+  gather_facts: no
   roles:
     - role: mysql
 
 - name: setup catalogue service
   hosts: catalogue
   become: true
-  gather_facts: true
+  gather_facts: no
   roles:
     - role: catalogue
 
 - name: setup mongodb service
   hosts: mongodb
   become: true
-  gather_facts: true
+  gather_facts: no
   roles:
     - role: mongodb
 
 - name: setup user service
   hosts: user
   become: true
-  gather_facts: true
+  gather_facts: no
   roles:
     - role: user
 
 - name: setup valkey service
   hosts: valkey
   become: true
-  gather_facts: true
+  gather_facts: no
   roles:
     - role: valkey
 
@@ -51,35 +51,35 @@
 - name: setup shipping service
   hosts: shipping
   become: true
-  gather_facts: true
+  gather_facts: no
   roles:
     - role: shipping
 
 - name: setup rabbitmq service
   hosts: rabbitmq
   become: true
-  gather_facts: true
+  gather_facts: no
   roles:
     - role: rabbitmq
 
 - name: setup payment service
   hosts: payment
   become: true
-  gather_facts: true
+  gather_facts: no
   roles:
     - role: payment
 
 - name: setup orders service
   hosts: orders
   become: true
-  gather_facts: true
+  gather_facts: no
   roles:
     - role: orders
 
 - name: setup ratings service
   hosts: ratings
   become: true
-  gather_facts: true
+  gather_facts: no
   roles:
     - role: ratings
 
