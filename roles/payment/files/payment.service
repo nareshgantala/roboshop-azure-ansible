@@ -11,11 +11,11 @@ Restart=on-failure
 RestartSec=10
 SyslogIdentifier=payment
 
-Environment=AMQP_HOST=10.0.26.5
+Environment=AMQP_HOST=10.0.24.98
 Environment=AMQP_USER=roboshop
 Environment=AMQP_PASS=RoboShop@1
-Environment=CART_URL=http://10.0.30.176:8003
-Environment=USER_URL=http://10.0.23.11:8001
+Environment=CART_URL=http://10.0.18.143:8003
+Environment=USER_URL=http://10.0.26.125:8001
 Environment=PORT=8005
 
 [Install]

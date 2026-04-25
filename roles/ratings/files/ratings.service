@@ -11,7 +11,7 @@ Restart=on-failure
 RestartSec=10
 SyslogIdentifier=ratings
 
-Environment=MYSQL_HOST=10.0.19.213
+Environment=MYSQL_HOST=10.0.27.103
 Environment=MYSQL_USER=ratings
 Environment=MYSQL_PASSWORD=RoboShop@1
 Environment=MYSQL_DATABASE=ratings
