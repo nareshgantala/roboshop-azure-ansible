@@ -37,6 +37,11 @@
     mysql -h 10.0.27.103 -u root -pRoboShop@1 < db/schema.sql
     mysql -h 10.0.27.103 -u root -pRoboShop@1 < db/app-user.sql
     mysql -h 10.0.27.103 -u root -pRoboShop@1 catalogue < db/master-data.sql
+  args:
+    chdir: /app
+
+- name: build go application
+  ansible.builtin.shell: |
     go mod tidy
     CGO_ENABLED=0 go build -o /app/catalogue .
   args:
