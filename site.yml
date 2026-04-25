@@ -1,5 +1,5 @@
 - name: setup frontend service
-  hosts: frontend
+  hosts: web
   become: true
   gather_facts: no
   roles:
@@ -20,7 +20,7 @@
     - role: catalogue
 
 - name: setup mongodb service
-  hosts: mongodb
+  hosts: mongo
   become: true
   gather_facts: no
   roles:
