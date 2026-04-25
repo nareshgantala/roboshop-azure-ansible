@@ -1,2 +1,50 @@
 ---
 # tasks file for catalogue
+- name: install go
+  ansible.builtin.dnf:
+    name:
+      - golang
+      - git
+      - mysql8.4
+      - unzip
+
+- name: copy service file
+  ansible.builtin.copy:
+    src: catalogue.service
+    dest: /etc/systemd/system/catalogue.service
+
+- name: Add the app user
+  ansible.builtin.user:
+    name: appuser
+    shell: /bin/false
+
+- name: create app directory
+  ansible.builtin.file:
+    path: /app
+    owner: appuser
+    group: appuser
+    mode: "0770"
+    state: directory
+
+- name: download & unzip code
+  ansible.builtin.unarchive:
+    src: https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/catalogue.zip
+    dest: /app
+    remote_src: yes
+
+- name: load db schema in mysql server
+  ansible.builtin.shell: |
+    mysql -h 10.0.19.213 -u root -pRoboShop@1 < db/schema.sql
+    mysql -h 10.0.19.213 -u root -pRoboShop@1 < db/app-user.sql
+    mysql -h 10.0.19.213 -u root -pRoboShop@1 catalogue < db/master-data.sql
+    go mod tidy
+    CGO_ENABLED=0 go build -o /app/catalogue .
+  args:
+    chdir: /app
+
+- name: Restart mysqld service
+  ansible.builtin.systemd_service:
+    state: restarted
+    enabled: yes
+    daemon_reload: true
+    name: catalogue

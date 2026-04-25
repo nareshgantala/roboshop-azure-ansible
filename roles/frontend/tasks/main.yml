@@ -1,2 +1,69 @@
 ---
 # tasks file for frontend
+- name: install nginx
+  ansible.builtin.dnf:
+    name: nginx
+    state: present
+
+- name: install unzip
+  ansible.builtin.dnf:
+    name: unzip
+    state: present
+
+- name: Copy nginx.conf
+  ansible.builtin.copy:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+    owner: root
+    group: root
+    mode: "0644"
+    force: yes
+
+- name: install nodejs
+  ansible.builtin.dnf:
+    name: nodejs
+    state: present
+
+- name: Remove old html
+  ansible.builtin.file:
+    path: /usr/share/nginx/html/
+    state: absent
+
+- name: create frontend directory
+  ansible.builtin.file:
+    path: /tmp/frontend
+    state: directory
+
+- name: Download frontend source code & unzip
+  ansible.builtin.unarchive:
+    src: https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/frontend.zip
+    dest: /tmp/frontend
+    remote_src: yes
+
+- name: build the code
+  ansible.builtin.shell: |
+    npm install
+    npm run build
+  args:
+    chdir: /tmp/frontend
+
+- name: Copy html code
+  ansible.builtin.copy:
+    src: /tmp/frontend/out/
+    dest: /usr/share/nginx/html/
+    owner: root
+    group: root
+    directory_mode: "0755"
+    mode: "0755"
+    remote_src: yes
+    force: yes
+- name: Fix SELinux context for Nginx
+  ansible.builtin.command: restorecon -Rv /usr/share/nginx/html
+  ignore_errors: yes
+
+- name: Restart nginx service
+  ansible.builtin.systemd_service:
+    state: restarted
+    enabled: yes
+    daemon_reload: true
+    name: nginx
