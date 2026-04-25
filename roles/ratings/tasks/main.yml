@@ -33,13 +33,13 @@
 
     - name: database schema load
       ansible.builtin.shell: |
-        mysql -h 10.0.19.213 -u root -pRoboShop@1 < db/schema.sql
+        mysql -h 10.0.27.103 -u root -pRoboShop@1 < db/schema.sql
       args:
         chdir: /app
 
     - name: ratings db user creation
       ansible.builtin.shell: |
-        mysql -h 10.0.19.213 -u root -pRoboShop@1 < db/app-user.sql
+        mysql -h 10.0.27.103 -u root -pRoboShop@1 < db/app-user.sql
       args:
         chdir: /app
 
