@@ -1,5 +1,5 @@
 ---
-# tasks file for payment
+# tasks file for "{{ component_name }}"
 - name: install python
   ansible.builtin.dnf:
     name:
@@ -7,10 +7,10 @@
       - python3-pip
       - unzip
 
-- name: copy payment service file
+- name: copy {{ component_name }} service file
   ansible.builtin.copy:
-    src: payment.service
-    dest: /etc/systemd/system/payment.service
+    src: "{{ component_name }}.service"
+    dest: /etc/systemd/system/{{ component_name }}.service
 
 - name: create user
   ansible.builtin.user:
@@ -27,7 +27,7 @@
 
 - name: download and unzip code
   ansible.builtin.unarchive:
-    src: https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/payment.zip
+    src: https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/{{ component_name }}.zip
     dest: /app
     remote_src: yes
 - name: download dependencies
@@ -35,9 +35,9 @@
   args:
     chdir: /app
 
-- name: restart payment service
+- name: restart {{ component_name }} service
   ansible.builtin.systemd_service:
-    name: payment
+    name: "{{ component_name }}"
     enabled: yes
     daemon_reload: true
     state: restarted

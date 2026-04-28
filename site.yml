@@ -2,84 +2,107 @@
   hosts: web
   become: true
   gather_facts: no
+  vars:
+    component_name: frontend
   roles:
-    - role: frontend
+    - role: "{{ component_name }}"
 
 - name: setup mysql service
   hosts: mysql
   become: true
   gather_facts: no
+  vars:
+    component_name: mysql
   roles:
-    - role: mysql
+    - role: "{{ component_name }}"
 
 - name: setup catalogue service
   hosts: catalogue
   become: true
   gather_facts: no
+  vars:
+    component_name: catalogue
   roles:
-    - role: catalogue
+    - role: "{{ component_name }}"
 
 - name: setup mongodb service
   hosts: mongo
   become: true
   gather_facts: no
+  vars:
+    component_name: mongodb
   roles:
-    - role: mongodb
+    - role: "{{ component_name }}"
 
 - name: setup user service
   hosts: user
   become: true
   gather_facts: no
+  vars:
+    component_name: user
   roles:
-    - role: user
+    - role: "{{ component_name }}"
 
 - name: setup valkey service
   hosts: valkey
   become: true
   gather_facts: no
+  vars:
+    component_name: valkey
   roles:
-    - role: valkey
+    - role: "{{ component_name }}"
 
 
 - name: setup cart service
   hosts: cart
   become: true
   gather_facts: true
+  vars:
+    component_name: cart
   roles:
-    - role: cart
+    - role: "{{ component_name }}"
 
 - name: setup shipping service
   hosts: shipping
   become: true
   gather_facts: no
+  vars:
+    component_name: shipping
   roles:
-    - role: shipping
+    - role: "{{ component_name }}"
 
 - name: setup rabbitmq service
   hosts: rabbitmq
   become: true
   gather_facts: no
+  vars:
+    component_name: rabbitmq
   roles:
-    - role: rabbitmq
+    - role: "{{ component_name }}"
 
 - name: setup payment service
   hosts: payment
   become: true
   gather_facts: no
+  vars:
+    component_name: payment
   roles:
-    - role: payment
+    - role: "{{ component_name }}"
 
 - name: setup orders service
   hosts: orders
   become: true
   gather_facts: no
+  vars:
+    component_name: orders
   roles:
-    - role: orders
+    - role: "{{ component_name }}"
 
 - name: setup ratings service
   hosts: ratings
   become: true
   gather_facts: no
+  vars:
+    component_name: ratings
   roles:
-    - role: ratings
-
+    - role: "{{ component_name }}"

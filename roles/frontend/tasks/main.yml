@@ -36,7 +36,7 @@
 
 - name: Download frontend source code & unzip
   ansible.builtin.unarchive:
-    src: https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/frontend.zip
+    src: https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/{{ component_name }}.zip
     dest: /tmp/frontend
     remote_src: yes
 
@@ -45,7 +45,7 @@
     npm install
     npm run build
   args:
-    chdir: /tmp/frontend
+    chdir: /tmp/{{ component_name }}
 
 - name: Copy html code
   ansible.builtin.copy:
@@ -67,3 +67,4 @@
     enabled: yes
     daemon_reload: true
     name: nginx
+

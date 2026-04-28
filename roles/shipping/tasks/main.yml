@@ -1,5 +1,5 @@
 ---
-# tasks file for shipping
+# tasks file for "{{ component_name }}"
 - name: install java, maven
   ansible.builtin.dnf:
     name:
@@ -11,8 +11,8 @@
 
 - name: copy service file
   ansible.builtin.copy:
-    src: shipping.service
-    dest: /etc/systemd/system/shipping.service
+    src: "{{ component_name }}.service"
+    dest: /etc/systemd/system/{{ component_name }}.service
 
 - name: create user
   ansible.builtin.user:
@@ -29,7 +29,7 @@
 
 - name: download code & unzip
   ansible.builtin.unarchive:
-    src: https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/shipping.zip
+    src: https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/{{ component_name }}.zip
     dest: /app
     remote_src: yes
 
@@ -38,13 +38,13 @@
     mysql -h 10.0.27.103 -u root -pRoboShop@1 < db/schema.sql
     mysql -h 10.0.27.103 -u root -pRoboShop@1 < db/app-user.sql
     mvn clean package -DskipTests
-    cp target/shipping.jar /app/shipping.jar
+    cp target/{{ component_name }}.jar /app/{{ component_name }}.jar
   args:
     chdir: /app
 
-- name: restart shipping service
+- name: restart {{ component_name }} service
   ansible.builtin.systemd_service:
-    name: shipping
+    name: "{{ component_name }}"
     state: restarted
     enabled: yes
     daemon_reload: true

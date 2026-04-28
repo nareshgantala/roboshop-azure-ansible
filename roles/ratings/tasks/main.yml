@@ -9,8 +9,8 @@
           - unzip
     - name: copy service file
       ansible.builtin.copy:
-        src: ratings.service
-        dest: /etc/systemd/system/ratings.service
+        src: "{{ component_name }}.service"
+        dest: /etc/systemd/system/{{ component_name }}.service
 
     - name: create app user
       ansible.builtin.user:
@@ -27,7 +27,7 @@
 
     - name: download code & unzip
       ansible.builtin.unarchive:
-        src: https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/ratings.zip
+        src: https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/{{ component_name }}.zip
         dest: /app
         remote_src: yes
 
@@ -37,7 +37,7 @@
       args:
         chdir: /app
 
-    - name: ratings db user creation
+    - name: "{{ component_name }} db user creation"
       ansible.builtin.shell: |
         mysql -h 10.0.27.103 -u root -pRoboShop@1 < db/app-user.sql
       args:
@@ -49,9 +49,9 @@
       args:
         chdir: /app
 
-    - name: restart ratings service
+    - name: restart {{ component_name }} service
       ansible.builtin.systemd_service:
-        name: ratings
+        name: "{{ component_name }}"
         state: restarted
         enabled: yes
         daemon_reload: true        

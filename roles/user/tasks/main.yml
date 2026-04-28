@@ -6,12 +6,12 @@
     dnf install -y nodejs
     dnf install -y unzip
 
-- name: copy user service file
+- name: copy "{{ component_name }}" service file
   ansible.builtin.copy:
-    src: user.service
-    dest: /etc/systemd/system/user.service
+    src: "{{ component_name }}.service"
+    dest: /etc/systemd/system/{{ component_name }}.service
 
-- name: create user
+- name: create appuser
   ansible.builtin.user:
     name: appuser
     shell: /bin/false
@@ -25,7 +25,7 @@
 
 - name: download & unzip code
   ansible.builtin.unarchive:
-    src: https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/user.zip
+    src: https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/{{ component_name }}.zip
     dest: /app
     remote_src: yes
 
@@ -36,7 +36,7 @@
 
 - name: restart user service
   ansible.builtin.systemd_service:
-    name: user
+    name: "{{ component_name }}"
     state: restarted
     enabled: yes
     daemon_reload: true

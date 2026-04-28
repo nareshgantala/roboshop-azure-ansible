@@ -8,10 +8,10 @@
       - maven
       - unzip
 
-- name: copy orders service
+- name: copy {{ component_name }} service
   ansible.builtin.copy:
-    src: orders.service
-    dest: /etc/systemd/system/orders.service
+    src: "{{ component_name }}.service"
+    dest: /etc/systemd/system/{{ component_name }}.service
 
 - name: create user
   ansible.builtin.user:
@@ -28,20 +28,20 @@
 
 - name: download & unzip code
   ansible.builtin.unarchive:
-    src: https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/orders.zip
+    src: https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/{{ component_name }}.zip
     dest: /app
     remote_src: yes
 
 - name: build code
   ansible.builtin.shell: |
     mvn clean package -DskipTests
-    cp target/orders.jar /app/orders.jar
+    cp target/{{ component_name }}.jar /app/{{ component_name }}.jar
   args:
     chdir: /app
 
 - name: restart oders service
   ansible.builtin.systemd_service:
-    name: orders
+    name: "{{ component_name }}"
     state: restarted
     daemon_reload: true
     enabled: yes

@@ -2,7 +2,7 @@
 # tasks file for redis
 - name: install valkey
   ansible.builtin.dnf:
-    name: valkey
+    name: "{{ component_name }}"
 
 - name: update bind IP
   ansible.builtin.shell: |
@@ -11,7 +11,7 @@
 
 - name: restart valkey
   ansible.builtin.systemd_service:
-    name: valkey
+    name: "{{ component_name }}"
     state: restarted
     enabled: yes
     daemon_reload: true
