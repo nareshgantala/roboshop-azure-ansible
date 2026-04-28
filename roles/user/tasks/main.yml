@@ -1,33 +1,14 @@
 ---
 # tasks file for user
+- name: setup the code
+  ansible.builtin.include_role: common
+
 - name: install nodejs
   ansible.builtin.shell: |
     curl -fsSL https://rpm.nodesource.com/setup_20.x | bash -
     dnf install -y nodejs
     dnf install -y unzip
 
-- name: copy "{{ component_name }}" service file
-  ansible.builtin.copy:
-    src: "{{ component_name }}.service"
-    dest: /etc/systemd/system/{{ component_name }}.service
-
-- name: create appuser
-  ansible.builtin.user:
-    name: appuser
-    shell: /bin/false
-- name: create app directory
-  ansible.builtin.file:
-    path: /app
-    owner: appuser
-    group: appuser
-    mode: "0770"
-    state: directory
-
-- name: download & unzip code
-  ansible.builtin.unarchive:
-    src: https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/{{ component_name }}.zip
-    dest: /app
-    remote_src: yes
 
 - name: install dependencies
   ansible.builtin.shell: npm install --production

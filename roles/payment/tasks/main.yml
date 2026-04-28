@@ -1,5 +1,8 @@
 ---
 # tasks file for "{{ component_name }}"
+- name: setup the code
+  ansible.builtin.include_role: common
+
 - name: install python
   ansible.builtin.dnf:
     name:
@@ -7,29 +10,6 @@
       - python3-pip
       - unzip
 
-- name: copy {{ component_name }} service file
-  ansible.builtin.copy:
-    src: "{{ component_name }}.service"
-    dest: /etc/systemd/system/{{ component_name }}.service
-
-- name: create user
-  ansible.builtin.user:
-    name: appuser
-    shell: /bin/false
-
-- name: create app folder
-  ansible.builtin.file:
-    path: /app
-    owner: appuser
-    group: appuser
-    mode: "0770"
-    state: directory
-
-- name: download and unzip code
-  ansible.builtin.unarchive:
-    src: https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/{{ component_name }}.zip
-    dest: /app
-    remote_src: yes
 - name: download dependencies
   ansible.builtin.shell: pip3 install -r requirements.txt
   args:
