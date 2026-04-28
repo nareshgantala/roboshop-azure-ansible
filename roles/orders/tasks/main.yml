@@ -1,13 +1,5 @@
 ---
 # tasks file for cart
-- name: Install Java, Maven
-  ansible.builtin.dnf:
-    name:
-      - java-21-openjdk
-      - java-21-openjdk-devel
-      - maven
-      - unzip
-
 - name: copy {{ component_name }} service
   ansible.builtin.copy:
     src: "{{ component_name }}.service"
@@ -31,6 +23,16 @@
     src: https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/{{ component_name }}.zip
     dest: /app
     remote_src: yes
+
+
+- name: Install Java, Maven
+  ansible.builtin.dnf:
+    name:
+      - java-21-openjdk
+      - java-21-openjdk-devel
+      - maven
+      - unzip
+
 
 - name: build code
   ansible.builtin.shell: |
