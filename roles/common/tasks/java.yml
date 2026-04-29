@@ -1,0 +1,8 @@
+- name: Install Java, Maven
+  ansible.builtin.dnf:
+    name:
+      - java-21-openjdk
+      - java-21-openjdk-devel
+      - maven
+      - mysql8.4
+      - unzip

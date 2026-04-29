@@ -3,14 +3,11 @@
 
 - name: setup the code
   ansible.builtin.include_role: common
+  tasks_from: main
 
-- name: Install Java, Maven
-  ansible.builtin.dnf:
-    name:
-      - java-21-openjdk
-      - java-21-openjdk-devel
-      - maven
-      - unzip
+- name: setup the code
+  ansible.builtin.include_role: common
+  tasks_from: java
 
 
 - name: build code
@@ -20,9 +17,6 @@
   args:
     chdir: /app
 
-- name: restart oders service
-  ansible.builtin.systemd_service:
-    name: "{{ component_name }}"
-    state: restarted
-    daemon_reload: true
-    enabled: yes
+- name: setup the code
+  ansible.builtin.include_role: common
+  tasks_from: systemd

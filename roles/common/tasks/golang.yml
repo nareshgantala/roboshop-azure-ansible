@@ -1,0 +1,7 @@
+- name: install go
+  ansible.builtin.dnf:
+    name:
+      - golang
+      - git
+      - mysql8.4
+      - unzip

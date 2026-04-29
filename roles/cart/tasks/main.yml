@@ -2,21 +2,17 @@
 # tasks file for cart
 - name: setup the code
   ansible.builtin.include_role: common
+  tasks_from: main
 
-- name: install nodejs
-  ansible.builtin.shell: |
-    curl -fsSL https://rpm.nodesource.com/setup_20.x | bash -
-    dnf install -y nodejs
-    dnf install -y unzip
+- name: setup the code
+  ansible.builtin.include_role: common
+  tasks_from: nodejs
 
 - name: install dependencies
   ansible.builtin.shell: npm install --production
   args:
     chdir: /app
 
-- name: restart {{ component_name }} service
-  ansible.builtin.systemd_service:
-    name: "{{ component_name }}"
-    daemon_reload: true
-    enabled: yes
-    state: restarted
+- name: setup the code
+  ansible.builtin.include_role: common
+  tasks_from: systemd

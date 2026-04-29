@@ -2,22 +2,17 @@
 # tasks file for "{{ component_name }}"
 - name: setup the code
   ansible.builtin.include_role: common
+  tasks_from: main
 
-- name: install python
-  ansible.builtin.dnf:
-    name:
-      - python3
-      - python3-pip
-      - unzip
+- name: setup the code
+  ansible.builtin.include_role: common
+  tasks_from: python
 
 - name: download dependencies
   ansible.builtin.shell: pip3 install -r requirements.txt
   args:
     chdir: /app
 
-- name: restart {{ component_name }} service
-  ansible.builtin.systemd_service:
-    name: "{{ component_name }}"
-    enabled: yes
-    daemon_reload: true
-    state: restarted
+- name: setup the code
+  ansible.builtin.include_role: common
+  tasks_from: systemd
