@@ -11,11 +11,11 @@ Restart=on-failure
 RestartSec=10
 SyslogIdentifier=payment
 
-Environment=AMQP_HOST=10.0.24.98
+Environment=AMQP_HOST=rabbitmq-{{ env }}.naresh-training.com
 Environment=AMQP_USER=roboshop
 Environment=AMQP_PASS=RoboShop@1
-Environment=CART_URL=http://10.0.18.143:8003
-Environment=USER_URL=http://10.0.26.125:8001
+Environment=CART_URL=http://cart-{{ env }}.naresh-training.com:8003
+Environment=USER_URL=http://user-{{ env }}.naresh-training.com:8001
 Environment=PORT=8005
 
 [Install]
