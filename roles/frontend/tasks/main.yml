@@ -14,10 +14,7 @@
   ansible.builtin.template:
     src: nginx.conf
     dest: /etc/nginx/nginx.conf
-    owner: root
-    group: root
-    mode: "0644"
-    force: yes
+
 
 - name: install nodejs
   ansible.builtin.dnf:
@@ -51,10 +48,6 @@
   ansible.builtin.copy:
     src: /tmp/frontend/out/
     dest: /usr/share/nginx/html/
-    owner: root
-    group: root
-    directory_mode: "0755"
-    mode: "0755"
     remote_src: yes
     force: yes
 
