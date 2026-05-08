@@ -57,9 +57,7 @@
     mode: "0755"
     remote_src: yes
     force: yes
-- name: Fix SELinux context for Nginx
-  ansible.builtin.command: restorecon -Rv /usr/share/nginx/html
-  ignore_errors: yes
+
 
 - name: Restart nginx service
   ansible.builtin.systemd_service:
