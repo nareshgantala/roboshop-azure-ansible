@@ -1,7 +1,7 @@
 - name: Roboshop Project Setup
   hosts: all
   become: true
-  gather_facts: false
+  connection: local
   roles:
     - role: "{{ component_name }}"
 
