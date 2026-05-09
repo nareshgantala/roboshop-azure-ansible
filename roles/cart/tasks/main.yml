@@ -1,12 +1,14 @@
 ---
 # tasks file for cart
 - name: setup the code
-  ansible.builtin.include_role: common
-  tasks_from: main
+  ansible.builtin.include_role: 
+    name: common
+    tasks_from: main
 
 - name: setup the code
-  ansible.builtin.include_role: common
-  tasks_from: nodejs
+  ansible.builtin.include_role: 
+    name: common
+    tasks_from: nodejs
 
 - name: install dependencies
   ansible.builtin.shell: npm install --production
@@ -14,5 +16,6 @@
     chdir: /app
 
 - name: setup the code
-  ansible.builtin.include_role: common
-  tasks_from: systemd
+  ansible.builtin.include_role: 
+    name: common
+    tasks_from: systemd
