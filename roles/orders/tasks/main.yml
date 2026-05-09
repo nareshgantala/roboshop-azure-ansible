@@ -4,12 +4,14 @@
 - name: setup the code
   ansible.builtin.include_role: 
     name: common
-    tasks_from: main
+    tasks_from: 
+      - main
+      - java
 
-- name: setup the code
-  ansible.builtin.include_role: 
-    name: common
-    tasks_from: java
+# - name: setup the code
+#   ansible.builtin.include_role: 
+#     name: common
+#     tasks_from: java
 
 
 - name: build code
