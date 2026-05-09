@@ -38,6 +38,5 @@
     password: "RoboShop@1"
     priv: "*.*:ALL,GRANT"
     state: present
-    login_user: root
-    login_password: "RoboShop@1"
+    user: root
     login_unix_socket: /var/lib/mysql/mysql.sock
