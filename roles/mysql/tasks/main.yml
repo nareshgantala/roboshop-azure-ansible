@@ -1,12 +1,18 @@
 ---
-- name: Create swap file (Required for 1GB RAM)
+- name: Create swap file in /var (Required for 1GB RAM)
   ansible.builtin.shell: |
-    fallocate -l 2G /swapfile
-    chmod 600 /swapfile
-    mkswap /swapfile
-    swapon /swapfile
+    # Remove any failed/partial files from previous attempts
+    swapoff /swapfile || true
+    rm -f /swapfile
+    rm -f /var/swapfile
+    
+    # Create 1GB swap in the partition with space (/var)
+    fallocate -l 1G /var/swapfile
+    chmod 600 /var/swapfile
+    mkswap /var/swapfile
+    swapon /var/swapfile
   args:
-    creates: /swapfile
+    creates: /var/swapfile
     
 # tasks file for mysql
 - name: install mysql server
