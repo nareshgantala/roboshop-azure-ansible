@@ -35,5 +35,6 @@
     chdir: /app
 
 - name: setup the code
-  ansible.builtin.include_role: common
-  tasks_from: systemd
+  ansible.builtin.include_role: 
+    name: common
+    tasks_from: systemd
