@@ -11,6 +11,10 @@
     enabled: yes
     daemon_reload: true
     name: mysqld
+  register: result
+  until: result is succeeded
+  retries: 5
+  delay: 10
 
 - name: set root password
   ansible.builtin.shell: |
