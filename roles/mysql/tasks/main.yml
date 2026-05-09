@@ -1,4 +1,13 @@
 ---
+- name: Create swap file (Required for 1GB RAM)
+  ansible.builtin.shell: |
+    fallocate -l 2G /swapfile
+    chmod 600 /swapfile
+    mkswap /swapfile
+    swapon /swapfile
+  args:
+    creates: /swapfile
+    
 # tasks file for mysql
 - name: install mysql server
   ansible.builtin.dnf:
