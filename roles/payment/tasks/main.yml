@@ -1,12 +1,14 @@
 ---
 # tasks file for "{{ component_name }}"
 - name: setup the code
-  ansible.builtin.include_role: common
-  tasks_from: main
+  ansible.builtin.include_role: 
+    name: common
+    tasks_from: main
 
 - name: setup the code
-  ansible.builtin.include_role: common
-  tasks_from: python
+  ansible.builtin.include_role: 
+    name: common
+    tasks_from: python
 
 - name: download dependencies
   ansible.builtin.shell: pip3 install -r requirements.txt

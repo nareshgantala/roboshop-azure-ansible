@@ -1,12 +1,14 @@
 ---
 # tasks file for "{{ component_name }}"
 - name: setup the code
-  ansible.builtin.include_role: common
-  tasks_from: main
+  ansible.builtin.include_role: 
+    name: common
+    tasks_from: main
 
 - name: Install Java
-  ansible.builtin.include_role: common
-  tasks_from: java
+  ansible.builtin.include_role: 
+    name: common
+    tasks_from: java
 
 - name: setup datbase
   ansible.builtin.shell: |

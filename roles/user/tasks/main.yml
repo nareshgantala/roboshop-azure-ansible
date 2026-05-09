@@ -1,12 +1,14 @@
 ---
 # tasks file for user
 - name: setup the code
-  ansible.builtin.include_role: common
-  tasks_from: main
+  ansible.builtin.include_role: 
+    name: common
+    tasks_from: main
 
 - name: Install NodeJs
-  ansible.builtin.include_role: common
-  tasks_from: modejs
+  ansible.builtin.include_role: 
+    name: common
+    tasks_from: modejs
 
 
 - name: install dependencies

@@ -1,13 +1,15 @@
 ---
 # tasks file for catalogue
 - name: setup pre-req for catalogue
-  ansible.builtin.include_role: common
-  tasks_from: main
+  ansible.builtin.include_role: 
+    name: common
+    tasks_from: main
 
 # tasks file for catalogue
 - name: setup pre-req for catalogue
-  ansible.builtin.include_role: common
-  tasks_from: golang
+  ansible.builtin.include_role: 
+    name: common
+    tasks_from: golang
 
 
 - name: Load schema
