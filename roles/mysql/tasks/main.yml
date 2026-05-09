@@ -31,12 +31,13 @@
   retries: 5
   delay: 10
 
-- name: set root password
-  ansible.builtin.shell: |
-    mysql -u root -pRoboShop@1 -e "status" &>/dev/null
-    if [ $? -ne 0 ]; then
-      # If we reach here, password is not set or is different. 
-      # On RHEL/AlmaLinux, mysql_secure_installation logic or direct SQL works:
-      mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'RoboShop@1';FLUSH PRIVILEGES;"
-    fi
-  ignore_errors: true
+- name: Allow root login from any host
+  community.mysql.mysql_user:
+    name: root
+    host: "%"
+    password: "RoboShop@1"
+    priv: "*.*:ALL,GRANT"
+    state: present
+    login_user: root
+    login_password: "RoboShop@1"
+    login_unix_socket: /var/lib/mysql/mysql.sock
