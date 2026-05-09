@@ -1,4 +1,12 @@
 ---
+- name: Install PyMySQL and Collections
+  ansible.builtin.dnf:
+    name: python3-pymysql
+    state: present
+
+- name: Install Ansible MySQL Collection
+  ansible.builtin.shell: ansible-galaxy collection install community.mysql
+
 - name: Create swap file in /var (Required for 1GB RAM)
   ansible.builtin.shell: |
     # Remove any failed/partial files from previous attempts
