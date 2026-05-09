@@ -19,21 +19,19 @@
     delay: 10
     timeout: 300
 
-- name: Load database schema
-  ansible.builtin.shell: mysql -h mysql-{{ env }}.naresh-training.online -u root -pRoboShop@1 < db/schema.sql
 
 - name: Load schema
-  ansible.builtin.shell: mysql -h mysql-{{ env }}.naresh-training.online -u root -pRoboShop@1 < db/schema.sql
+  ansible.builtin.shell: mysql -h mysql-{{ env }}.naresh-training.online -u root -pRoboShop@1 < /app/db/schema.sql
   args:
     chdir: /app
 
 - name: Create catalogue DB user
-  ansible.builtin.shell: mysql -h mysql-{{ env }}.naresh-training.online -u root -pRoboShop@1 < db/app-user.sql
+  ansible.builtin.shell: mysql -h mysql-{{ env }}.naresh-training.online -u root -pRoboShop@1 < /app/db/app-user.sql
   args:
     chdir: /app
 
 - name: Load master data
-  ansible.builtin.shell: mysql -h mysql-{{ env }}.naresh-training.online -u root -pRoboShop@1 catalogue < db/master-data.sql
+  ansible.builtin.shell: mysql -h mysql-{{ env }}.naresh-training.online -u root -pRoboShop@1 catalogue < /app/db/master-data.sql
   args:
     chdir: /app
 
