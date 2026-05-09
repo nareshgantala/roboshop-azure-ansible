@@ -14,10 +14,10 @@
 
 - name: set root password
   ansible.builtin.shell: |
-    mysql -u root -e "
-    CREATE USER 'root'@'%' IDENTIFIED BY 'RoboShop@1';
-    GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
-    ALTER USER 'root'@'localhost' IDENTIFIED BY 'RoboShop@1';
-    FLUSH PRIVILEGES;
-    "
-  ignore_errors: yes
+    mysql -u root -pRoboShop@1 -e "status" &>/dev/null
+    if [ $? -ne 0 ]; then
+      # If we reach here, password is not set or is different. 
+      # On RHEL/AlmaLinux, mysql_secure_installation logic or direct SQL works:
+      mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'RoboShop@1';FLUSH PRIVILEGES;"
+    fi
+  ignore_errors: true
