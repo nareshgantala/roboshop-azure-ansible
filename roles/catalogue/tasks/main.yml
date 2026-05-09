@@ -10,7 +10,17 @@
   ansible.builtin.include_role: 
     name: common
     tasks_from: golang
+    
+- name: Wait for MySQL to be ready
+  ansible.builtin.wait_for:
+    host: "mysql-{{ env }}.naresh-training.online"
+    port: 3306
+    state: started
+    delay: 10
+    timeout: 300
 
+- name: Load database schema
+  ansible.builtin.shell: mysql -h mysql-{{ env }}.naresh-training.online -u root -pRoboShop@1 < db/schema.sql
 
 - name: Load schema
   ansible.builtin.shell: mysql -h mysql-{{ env }}.naresh-training.online -u root -pRoboShop@1 < db/schema.sql
