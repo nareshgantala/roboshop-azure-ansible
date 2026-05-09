@@ -34,17 +34,17 @@
     enabled: yes
     daemon_reload: true
     name: mysqld
-  register: result
-  until: result is succeeded
-  retries: 5
-  delay: 10
+
 
 - name: Allow root login from any host
+  # Use the full name and correct parameters
   community.mysql.mysql_user:
     name: root
     host: "%"
     password: "RoboShop@1"
     priv: "*.*:ALL,GRANT"
     state: present
-    user: root
+    login_user: root
+    login_password: "RoboShop@1"
+    check_implicit_admin: yes
     login_unix_socket: /var/lib/mysql/mysql.sock
