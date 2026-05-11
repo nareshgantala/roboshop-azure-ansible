@@ -21,7 +21,7 @@
 
 - name: setup datbase
   ansible.builtin.shell: |
-    mysql -h mysql-{{ env }}.naresh-training.online -u root -pRoboShop@1 < /appdb/schema.sql
+    mysql -h mysql-{{ env }}.naresh-training.online -u root -pRoboShop@1 < /app/db/schema.sql
     mysql -h mysql-{{ env }}.naresh-training.online -u root -pRoboShop@1 < /app/db/app-user.sql
     mvn clean package -DskipTests
     cp target/{{ component_name }}.jar /app/{{ component_name }}.jar
