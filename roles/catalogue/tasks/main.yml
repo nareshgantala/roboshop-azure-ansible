@@ -35,12 +35,7 @@
   args:
     chdir: /app
 
-- name: build go application
-  ansible.builtin.shell: |
-    go mod tidy
-    CGO_ENABLED=0 go build -o /app/{{ component_name }} .
-  args:
-    chdir: /app
+
 
 - name: setup the code
   ansible.builtin.include_role: 

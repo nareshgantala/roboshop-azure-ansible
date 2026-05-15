@@ -5,3 +5,16 @@
       - git
       - mysql8.4
       - unzip
+
+- name: build go application
+  ansible.builtin.shell: |
+    # Explicitly set the Go cache paths for the automation environment
+    export HOME=/root
+    export GOPATH=/root/go
+    export GOMODCACHE=/root/go/pkg/mod
+    
+    # Download dependencies and build
+    go mod tidy
+    CGO_ENABLED=0 go build -o /app/{{ component_name }} .
+  args:
+    chdir: /app
